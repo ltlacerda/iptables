@@ -12,7 +12,7 @@ cases.
 The simpliest way to install iptables is by the composer.
 
 ```
-composer require plugowski/iptables
+composer require azurre/iptables
 ```
 
 Of course you can also download that repository and load all classes from src into your project (don't forget to load all required files).
@@ -22,9 +22,9 @@ Of course you can also download that repository and load all classes from src in
 Parsing raw iptables dump build chains tree connected to one of five default tables in `iptables`.
 
 ```php
-use plugowski\iptables\IptablesService;
-use plugowski\iptables\Table\Table;
-use plugowski\iptables\Table\TableFactory;
+use azurre\iptables\IptablesService;
+use azurre\iptables\Table\Table;
+use azurre\iptables\Table\TableFactory;
 
 $iptables = new IptablesService();
 $table = (new TableFactory())->build(Table::TABLE_MANGLE);

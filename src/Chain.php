@@ -1,5 +1,5 @@
 <?php
-namespace plugowski\iptables;
+namespace azurre\iptables;
 
 /**
  * Class Chain

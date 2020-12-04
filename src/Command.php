@@ -1,9 +1,9 @@
 <?php
-namespace plugowski\iptables;
+namespace azurre\iptables;
 
 /**
  * Class Command
- * @package plugowski\Iptables
+ * @package azurre\Iptables
  */
 class Command
 {

@@ -1,12 +1,12 @@
 <?php
-namespace plugowski\iptables\Table;
+namespace azurre\iptables\Table;
 
-use plugowski\iptables\Chain;
-use plugowski\iptables\Command;
+use azurre\iptables\Chain;
+use azurre\iptables\Command;
 
 /**
  * Class Table
- * @package plugowski\iptables\Table
+ * @package azurre\iptables\Table
  */
 class Table
 {

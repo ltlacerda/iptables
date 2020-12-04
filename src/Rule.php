@@ -1,34 +1,33 @@
 <?php
-namespace plugowski\iptables;
+namespace azurre\iptables;
 
 /**
  * Class Rule
  */
 class Rule
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     private $num;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $target;
-    /**
-     * @var int
-     */
+
+    /** @var int */
     private $protocol;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $source;
-    /**
-     * @var string
-     */
+
+    /** @var string */
+    private $in;
+
+    /** @var string */
+    private $out;
+
+    /** @var string */
     private $destination;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     private $options = [];
 
     /**
@@ -39,7 +38,7 @@ class Rule
      * @param string $destination
      * @param string|array $options
      */
-    public function __construct($target, $protocol, $source = null, $destination = null, $options = [])
+    public function __construct($target = null, $protocol = null, $source = null, $destination = null, $options = [])
     {
         $this->target = $target;
         $this->protocol = $protocol;
@@ -51,6 +50,24 @@ class Rule
         } else {
             $this->parseOptions($options);
         }
+    }
+
+    /**
+     * @param array|\ArrayAccess $rule
+     * @return static
+     */
+    public static function create($rule)
+    {
+        $instance = new static();
+        foreach ($rule as $key => $value) {
+            if ($value && property_exists($instance, $key)) {
+                $instance->{$key} = $value;
+            }
+        }
+        if (!is_array($instance->options)) {
+            $instance->parseOptions((string)$instance->options);
+        }
+        return $instance;
     }
 
     /**
@@ -74,8 +91,13 @@ class Rule
      */
     private function parseOptions($options)
     {
+        $options = trim($options);
+        if (empty($options)) {
+            $this->options = [];
+            return;
+        }
         // find if any port options has been set
-        if (preg_match('/(?:(?<direction>(s|d)pt)s?:)(?<exclude>!?)(?<ports>(\d+):?(\d+))/', $options, $parsed)) {
+        if (preg_match('/(?:(?<direction>([sd])pt)s?:)(?<exclude>!?)(?<ports>(\d+):?(\d+))/', $options, $parsed)) {
             $map = ['dpt' => '--destination-port', 'spt' => '--source-port'];
             $excl = !empty($parsed['exclude']) ? $parsed['exclude'] . ' ' : '';
             $this->options[$map[$parsed['direction']]] = $excl . $parsed['ports'];
@@ -111,6 +133,12 @@ class Rule
         }
         if (!is_null($this->destination) && '0.0.0.0/0' != $this->destination) {
             $cmd .= ' --destination ' . $this->destination;
+        }
+        if ($this->in && $this->in !== '*') {
+            $cmd .= ' --in-interface ' . $this->in;
+        }
+        if ($this->out && $this->out !== '*') {
+            $cmd .= ' --out-interface ' . $this->out;
         }
 
         foreach ($this->options as $k => $value) {

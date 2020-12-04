@@ -1,9 +1,9 @@
 <?php
-namespace plugowski\iptables\Table;
+namespace azurre\iptables\Table;
 
 /**
  * Class FilterTable
- * @package plugowski\iptables\Table
+ * @package azurre\iptables\Table
  */
 class FilterTable extends Table
 {

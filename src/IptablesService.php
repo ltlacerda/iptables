@@ -1,7 +1,7 @@
 <?php
-namespace plugowski\iptables;
+namespace azurre\iptables;
 
-use plugowski\iptables\Table\Table;
+use azurre\iptables\Table\Table;
 
 /**
  * Class Iptables
@@ -38,10 +38,14 @@ class IptablesService
                         (?<policy>.*)
                         (?:\).*)/x',
 
-            'rule' => '/(?<id>\d+)\s+
+            'rule' => '/(?<num>\d+)\s+
+                        (?<packets>\d+)\s+
+                        (?<bytes>\d+)\s+
                         (?<target>\w+)\s+
                         (?<protocol>\w+)\s+
                         (?<opt>[\w-]+)\s+
+                        (?<in>[\w+\*]+)\s+
+                        (?<out>[\w+\*]+)\s+
                         (?<source>[0-9\.\/]+)\s+
                         (?<destination>[0-9\.\/]+)\s+
                         ?(?<options>.*)/x'
@@ -55,9 +59,8 @@ class IptablesService
             }
 
             if (isset($chain) && preg_match($patterns['rule'], $row, $out)) {
-                $rule = new Rule($out['target'], $out['protocol'], $out['source'], $out['destination'], trim($out['options']));
-                $rule->setNum($out['id']);
-                $chain->insertRule($rule, $out['id']);
+                $rule = Rule::create($out);
+                $chain->insertRule($rule, $out['num']);
             }
         }
 

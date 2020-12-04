@@ -1,9 +1,9 @@
 <?php
-namespace plugowski\iptables\Table;
+namespace azurre\iptables\Table;
 
 /**
  * Class MangleTable
- * @package plugowski\iptables\Table
+ * @package azurre\iptables\Table
  */
 class MangleTable extends Table
 {
