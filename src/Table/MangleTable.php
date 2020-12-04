@@ -1,9 +1,9 @@
 <?php
-namespace azurre\iptables\Table;
+namespace Azurre\Iptables\Table;
 
 /**
  * Class MangleTable
- * @package azurre\iptables\Table
+ * @package Azurre\Iptables\Table
  */
 class MangleTable extends Table
 {

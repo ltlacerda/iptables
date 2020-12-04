@@ -1,5 +1,5 @@
 <?php
-namespace azurre\iptables;
+namespace Azurre\Iptables;
 
 /**
  * Class Chain

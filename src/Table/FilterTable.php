@@ -1,9 +1,9 @@
 <?php
-namespace azurre\iptables\Table;
+namespace Azurre\Iptables\Table;
 
 /**
  * Class FilterTable
- * @package azurre\iptables\Table
+ * @package Azurre\Iptables\Table
  */
 class FilterTable extends Table
 {

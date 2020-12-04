@@ -1,7 +1,7 @@
 <?php
-namespace azurre\iptables;
+namespace Azurre\Iptables;
 
-use azurre\iptables\Table\Table;
+use Azurre\Iptables\Table\Table;
 
 /**
  * Class Iptables

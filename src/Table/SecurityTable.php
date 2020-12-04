@@ -1,9 +1,9 @@
 <?php
-namespace azurre\iptables\Table;
+namespace Azurre\Iptables\Table;
 
 /**
  * Class SecurityTable
- * @package azurre\iptables\Table
+ * @package Azurre\Iptables\Table
  */
 class SecurityTable extends Table
 {

@@ -1,12 +1,12 @@
 <?php
-namespace azurre\iptables\Table;
+namespace Azurre\Iptables\Table;
 
-use azurre\iptables\Chain;
-use azurre\iptables\Command;
+use Azurre\Iptables\Chain;
+use Azurre\Iptables\Command;
 
 /**
  * Class Table
- * @package azurre\iptables\Table
+ * @package Azurre\Iptables\Table
  */
 class Table
 {
