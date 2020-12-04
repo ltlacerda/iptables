@@ -1,11 +1,23 @@
 <?php
+
 namespace Azurre\Iptables;
 
 /**
  * Class Rule
+ *
+ * @property int $num
+ * @property string $target
+ * @property string $protocol
+ * @property string $source
+ * @property string $in
+ * @property string $out
+ * @property string $destination
+ * @property array $options
  */
 class Rule
 {
+    use PropertyAccessTrait;
+
     /** @var int */
     private $num;
 
@@ -13,43 +25,41 @@ class Rule
     private $target;
 
     /** @var int */
-    private $protocol;
+    private $protocol = 'all';
 
     /** @var string */
     private $source;
 
     /** @var string */
-    private $in;
+    private $in = '*';
 
     /** @var string */
-    private $out;
+    private $out = '*';
 
     /** @var string */
-    private $destination;
+    private $destination = '0.0.0.0/0';
 
     /** @var array */
     private $options = [];
 
+    /** @var array */
+    private static $significantProps = ['target', 'protocol', 'source', 'in', 'out', 'destination', 'options'];
+
     /**
      * Rule constructor.
-     * @param string $target
-     * @param int $protocol
-     * @param string $source
-     * @param string $destination
-     * @param string|array $options
+     * @param null|string $target
+     * @param null|int $protocol
+     * @param null|string $source
+     * @param null|string $destination
+     * @param null|string|array $options
      */
-    public function __construct($target = null, $protocol = null, $source = null, $destination = null, $options = [])
+    public function __construct($target = null, $protocol = null, $source = null, $destination = null, $options = null)
     {
-        $this->target = $target;
-        $this->protocol = $protocol;
-        $this->source = $source;
-        $this->destination = $destination;
-
-        if (is_array($options)) {
-            $this->options = $options;
-        } else {
-            $this->parseOptions($options);
-        }
+        $this->target = $target ?: $this->target;
+        $this->protocol = $protocol ?: $this->protocol;
+        $this->source = $source ?: $this->source;
+        $this->destination = $destination ?: $this->destination;
+        $this->setOptions($options ?: $this->options);
     }
 
     /**
@@ -60,12 +70,9 @@ class Rule
     {
         $instance = new static();
         foreach ($rule as $key => $value) {
-            if ($value && property_exists($instance, $key)) {
-                $instance->{$key} = $value;
+            if (property_exists($instance, $key)) {
+                $instance->__set($key, $value);
             }
-        }
-        if (!is_array($instance->options)) {
-            $instance->parseOptions((string)$instance->options);
         }
         return $instance;
     }
@@ -84,6 +91,21 @@ class Rule
     public function setNum($num)
     {
         $this->num = $num;
+    }
+
+    /**
+     * @param array|string $options
+     * @return $this
+     */
+    public function setOptions($options)
+    {
+        if (is_array($options)) {
+            $this->options = $options;
+        } else {
+            $this->parseOptions($options);
+        }
+
+        return $this;
     }
 
     /**
@@ -154,5 +176,19 @@ class Rule
         $cmd .= !empty($this->target) ? ' --jump ' . $this->target : '';
 
         return $cmd;
+    }
+
+    /**
+     * @param Rule $rule
+     * @return bool
+     */
+    public function isEqualTo(Rule $rule)
+    {
+        foreach (static::$significantProps as $key) {
+            if ($this->{$key} !== $rule->{$key}) {
+                return false;
+            }
+        }
+        return true;
     }
 }

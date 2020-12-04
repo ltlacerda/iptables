@@ -2,9 +2,9 @@
 namespace Iptables;
 
 use PHPUnit_Framework_TestCase;
-use azurre\iptables\Chain;
-use azurre\iptables\Rule;
-use azurre\iptables\Table\Table;
+use Azurre\Iptables\Chain;
+use Azurre\Iptables\Rule;
+use Azurre\Iptables\Table\Table;
 
 /**
  * Class ChainTest

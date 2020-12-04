@@ -59,8 +59,7 @@ class IptablesService
             }
 
             if (isset($chain) && preg_match($patterns['rule'], $row, $out)) {
-                $rule = Rule::create($out);
-                $chain->insertRule($rule, $out['num']);
+                $chain->insertRule(Rule::create($out), $out['num']);
             }
         }
 

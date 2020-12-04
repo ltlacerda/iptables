@@ -2,7 +2,7 @@
 namespace Iptables;
 
 use PHPUnit_Framework_TestCase;
-use azurre\iptables\Rule;
+use Azurre\Iptables\Rule;
 
 /**
  * Class RuleTest

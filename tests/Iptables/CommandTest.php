@@ -2,8 +2,8 @@
 namespace Iptables;
 
 use PHPUnit_Framework_TestCase;
-use azurre\iptables\Command;
-use azurre\iptables\Table\Table;
+use Azurre\Iptables\Command;
+use Azurre\Iptables\Table\Table;
 
 /**
  * Class CommandTest

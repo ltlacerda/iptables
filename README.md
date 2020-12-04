@@ -22,12 +22,12 @@ Of course you can also download that repository and load all classes from src in
 Parsing raw iptables dump build chains tree connected to one of five default tables in `iptables`.
 
 ```php
-use azurre\iptables\IptablesService;
-use azurre\iptables\Table\Table;
-use azurre\iptables\Table\TableFactory;
+use Azurre\Iptables\IptablesService;
+use Azurre\Iptables\Table\Table;
+use Azurre\Iptables\Table\TableFactory;
 
 $iptables = new IptablesService();
-$table = (new TableFactory())->build(Table::TABLE_MANGLE);
+$table = TableFactory::create(Table::TABLE_MANGLE);
 $table->setRaw(shell_exec('iptables -nL --line-numbers -t ' . Table::TABLE_MANGLE));
 
 $result = $iptables->parseIptablesChains($table);

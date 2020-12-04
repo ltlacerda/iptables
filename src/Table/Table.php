@@ -39,10 +39,12 @@ class Table
 
     /**
      * @param string $raw
+     * @return static
      */
     public function setRaw($raw)
     {
         $this->raw = $raw;
+        return $this;
     }
 
     /**

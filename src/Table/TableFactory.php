@@ -12,7 +12,7 @@ class TableFactory
      * @return FilterTable|MangleTable|NatTable|RawTable|SecurityTable
      * @throws \Exception
      */
-    public function build($name)
+    public static function create($name)
     {
         switch ($name) {
             case Table::TABLE_FILTER :
@@ -28,5 +28,16 @@ class TableFactory
             default :
                 throw new \Exception('Not found!');
         }
+    }
+
+    /**
+     * @param string $name
+     * @return FilterTable|MangleTable|NatTable|RawTable|SecurityTable
+     * @throws \Exception
+     * @deprecated Use TableFactory::create($name)
+     */
+    public function build($name)
+    {
+        return static::create($name);
     }
 }
