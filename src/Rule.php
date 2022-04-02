@@ -104,10 +104,14 @@ class Rule
     }
 
     /**
+     * @param bool $convertToName
      * @return string
      */
-    public function getProtocol()
+    public function getProtocol($convertToName = true)
     {
+        if ($convertToName && is_numeric($this->protocol)) {
+            return static::PROTOCOLS[$this->protocol] ?: $this->protocol;
+        }
         return $this->protocol;
     }
 
@@ -162,18 +166,6 @@ class Rule
         }
 
         return $this;
-    }
-
-    /**
-     * @param bool $convertToName
-     * @return string
-     */
-    public function getProtocol($convertToName = true)
-    {
-        if ($convertToName && is_numeric($this->protocol)) {
-            return static::PROTOCOLS[$this->protocol] ?: $this->protocol;
-        }
-        return $this->protocol;
     }
 
     /**
