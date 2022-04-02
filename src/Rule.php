@@ -80,11 +80,69 @@ class Rule
     }
 
     /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param bool $convertToName
+     * @return string
+     */
+    public function getProtocol($convertToName = true)
+    {
+        if ($convertToName && is_numeric($this->protocol)) {
+            return static::PROTOCOLS[$this->protocol] ?: $this->protocol;
+        }
+        return $this->protocol;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
      * @return int
      */
     public function getNum()
     {
         return $this->num;
+    }
+
+    /**
+     * @return array
+     */
+    public function dump(){
+      return [
+        'num'=>$this->num,
+        'target'=>$this->target,
+        'protocol'=>$this->protocol,
+        'source'=>$this->source,
+        'destination'=>$this->destination,
+        'options'=>$this->options,
+      ];
     }
 
     /**
@@ -108,18 +166,6 @@ class Rule
         }
 
         return $this;
-    }
-
-    /**
-     * @param bool $convertToName
-     * @return string
-     */
-    public function getProtocol($convertToName = true)
-    {
-        if ($convertToName && is_numeric($this->protocol)) {
-            return static::PROTOCOLS[$this->protocol] ?: $this->protocol;
-        }
-        return $this->protocol;
     }
 
     /**
