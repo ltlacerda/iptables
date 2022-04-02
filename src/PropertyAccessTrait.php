@@ -1,11 +1,16 @@
 <?php
+
 namespace Azurre\Iptables;
 
 trait PropertyAccessTrait
 {
     public function __get($name)
     {
-        return property_exists($this, $name) ? $this->{$name} : null;
+        if (property_exists($this, $name)) {
+            $getter = 'get' . ucfirst($name);
+            return method_exists($this, $getter) ? $this->{$getter}() : $this->{$name};
+        }
+        return null;
     }
 
     public function __set($name, $value)

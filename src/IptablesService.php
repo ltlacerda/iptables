@@ -39,8 +39,8 @@ class IptablesService
                         (?:\).*)/x',
 
             'rule' => '/(?<num>\d+)\s+
-                        (?<packets>\d+)\s+
-                        (?<bytes>\d+)\s+
+                        (?<packets>\d+[K|M|G]?)\s+
+                        (?<bytes>\d+[K|M|G]?)\s+
                         (?<target>\w+)\s+
                         (?<protocol>\w+)\s+
                         (?<opt>[\w-]+)\s+

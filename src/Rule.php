@@ -28,7 +28,7 @@ class Rule
     private $protocol = 'all';
 
     /** @var string */
-    private $source;
+    private $source = '0.0.0.0/0';
 
     /** @var string */
     private $in = '*';
@@ -44,6 +44,8 @@ class Rule
 
     /** @var array */
     private static $significantProps = ['target', 'protocol', 'source', 'in', 'out', 'destination', 'options'];
+
+    const PROTOCOLS = [47 => 'gre'];
 
     /**
      * Rule constructor.
@@ -106,6 +108,18 @@ class Rule
         }
 
         return $this;
+    }
+
+    /**
+     * @param bool $convertToName
+     * @return string
+     */
+    public function getProtocol($convertToName = true)
+    {
+        if ($convertToName && is_numeric($this->protocol)) {
+            return static::PROTOCOLS[$this->protocol] ?: $this->protocol;
+        }
+        return $this->protocol;
     }
 
     /**
