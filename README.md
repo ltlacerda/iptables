@@ -62,7 +62,9 @@ num  target     prot opt source               destination
 I assume that we already have parsed table under `$result` var, so the easiest way to do that is:
 
 ```php
-$newRule = new Rule('ACCEPT', 'tcp', '127.0.0.1');
+use Azurre\Iptables\Target;
+
+$newRule = new Rule(Target::ACCEPT, 'tcp', '127.0.0.1');
 $cmd = $result->getChainByName('INPUT')->replaceRule($newRule, 1);
 
 ```

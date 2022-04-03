@@ -6,6 +6,7 @@ namespace Azurre\Iptables;
  * Class Rule
  *
  * @property int $num
+ * @property string $chain
  * @property string $target
  * @property string $protocol
  * @property string $source
@@ -20,6 +21,12 @@ class Rule
 
     /** @var int */
     private $num;
+
+    /** @var string */
+    private $chain;
+
+    /** @var string */
+    private $table;
 
     /** @var string */
     private $target;
@@ -46,6 +53,12 @@ class Rule
     private static $significantProps = ['target', 'protocol', 'source', 'in', 'out', 'destination', 'options'];
 
     const PROTOCOLS = [47 => 'gre'];
+
+    const OPTIONS_MAP = [
+        'dpt' => '--destination-port',
+        'spt' => '--source-port',
+        'to' => '--to-destination'
+    ];
 
     /**
      * Rule constructor.
@@ -132,6 +145,14 @@ class Rule
     }
 
     /**
+     * @return string
+     */
+    public function getChain()
+    {
+        return $this->chain;
+    }
+
+    /**
      * @return array
      */
     public function dump(){
@@ -169,6 +190,26 @@ class Rule
     }
 
     /**
+     * @param string $chain
+     * @return Rule
+     */
+    public function setChain($chain)
+    {
+        $this->chain = $chain;
+        return $this;
+    }
+
+    /**
+     * @param string $table
+     * @return Rule
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+        return $this;
+    }
+
+    /**
      * @param string $options
      */
     private function parseOptions($options)
@@ -180,9 +221,12 @@ class Rule
         }
         // find if any port options has been set
         if (preg_match('/(?:(?<direction>([sd])pt)s?:)(?<exclude>!?)(?<ports>(\d+):?(\d+))/', $options, $parsed)) {
-            $map = ['dpt' => '--destination-port', 'spt' => '--source-port'];
             $excl = !empty($parsed['exclude']) ? $parsed['exclude'] . ' ' : '';
-            $this->options[$map[$parsed['direction']]] = $excl . $parsed['ports'];
+            $this->options[$parsed['direction']] = $excl . $parsed['ports'];
+        }
+
+        if (preg_match('/to:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:?\d+)?/', $options, $parsed)) {
+            $this->options['to'] = $parsed[1];
         }
 
         // find if --mach mac has been set
@@ -223,12 +267,13 @@ class Rule
             $cmd .= ' --out-interface ' . $this->out;
         }
 
-        foreach ($this->options as $k => $value) {
+        foreach ($this->options as $opt => $value) {
+            $opt = static::OPTIONS_MAP[$opt] ?: $opt;
             if (is_scalar($value)) {
-                $cmd .= ' ' . $k . ' ' . $value;
+                $cmd .= " $opt $value";
             } else {
                 foreach ($value as $option) {
-                    $cmd .= ' ' . $k . ' ' . $option;
+                    $cmd .= " $opt $option";
                 }
             }
         }
@@ -245,7 +290,7 @@ class Rule
     public function isEqualTo(Rule $rule)
     {
         foreach (static::$significantProps as $key) {
-            if ($this->{$key} !== $rule->{$key}) {
+            if ($this->__get($key) !== $rule->{$key}) {
                 return false;
             }
         }
