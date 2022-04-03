@@ -5,6 +5,7 @@ use PHPUnit_Framework_TestCase;
 use Azurre\Iptables\Chain;
 use Azurre\Iptables\Rule;
 use Azurre\Iptables\Table\Table;
+use Azurre\Iptables\Target;
 
 /**
  * Class ChainTest
@@ -28,7 +29,7 @@ class ChainTest extends PHPUnit_Framework_TestCase
     public function shouldAddRuleToChain()
     {
         $chain = $this->getExampleChain();
-        $chain->appendRule(new Rule('ACCEPT', 'tcp'));
+        $chain->appendRule(new Rule(Target::ACCEPT, 'tcp'));
 
         $this->assertEquals(1, count($chain->getRulesList()));
 
@@ -48,7 +49,7 @@ class ChainTest extends PHPUnit_Framework_TestCase
     public function shouldInsertRule()
     {
         $chain = $this->getExampleChain();
-        $chain->appendRule(new Rule('ACCEPT', 'tcp'));
+        $chain->appendRule(new Rule(Target::ACCEPT, 'tcp'));
         $chain->appendRule(new Rule('DROP', 'tcp'));
         $chain->appendRule(new Rule('something', 'tcp'));
 
@@ -69,7 +70,7 @@ class ChainTest extends PHPUnit_Framework_TestCase
     public function shouldReplaceRule()
     {
         $chain = $this->getExampleChain();
-        $chain->appendRule(new Rule('ACCEPT', 'tcp'));
+        $chain->appendRule(new Rule(Target::ACCEPT, 'tcp'));
         $chain->appendRule(new Rule('DROP', 'tcp'));
 
         $expected = ' --proto tcp --jump DROP';
@@ -89,7 +90,7 @@ class ChainTest extends PHPUnit_Framework_TestCase
     public function shouldFlushChain()
     {
         $chain = $this->getExampleChain();
-        $chain->appendRule(new Rule('ACCEPT', 'tcp'));
+        $chain->appendRule(new Rule(Target::ACCEPT, 'tcp'));
         $chain->appendRule(new Rule('DROP', 'udp', '127.0.0.1'));
         $chain->appendRule(new Rule('wanout', 'all', '127.0.0.1', '127.22.22.22'));
 
