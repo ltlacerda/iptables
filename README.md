@@ -12,7 +12,7 @@ cases.
 The simpliest way to install iptables is by the composer.
 
 ```
-composer require azurre/iptables
+composer require ltlacerda/iptables
 ```
 
 Of course you can also download that repository and load all classes from src into your project (don't forget to load all required files).
@@ -22,9 +22,9 @@ Of course you can also download that repository and load all classes from src in
 Parsing raw iptables dump build chains tree connected to one of five default tables in `iptables`.
 
 ```php
-use Azurre\Iptables\IptablesService;
-use Azurre\Iptables\Table\Table;
-use Azurre\Iptables\Table\TableFactory;
+use Ltlacerda\Iptables\IptablesService;
+use Ltlacerda\Iptables\Table\Table;
+use Ltlacerda\Iptables\Table\TableFactory;
 
 $iptables = new IptablesService();
 $table = TableFactory::create(Table::TABLE_MANGLE);
@@ -62,7 +62,7 @@ num  target     prot opt source               destination
 I assume that we already have parsed table under `$result` var, so the easiest way to do that is:
 
 ```php
-use Azurre\Iptables\Target;
+use Ltlacerda\Iptables\Target;
 
 $newRule = new Rule(Target::ACCEPT, 'tcp', '127.0.0.1');
 $cmd = $result->getChainByName('INPUT')->replaceRule($newRule, 1);

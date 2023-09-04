@@ -2,9 +2,9 @@
 namespace Iptables;
 
 use PHPUnit_Framework_TestCase;
-use Azurre\Iptables\IptablesService;
-use Azurre\Iptables\Table\Table;
-use Azurre\Iptables\Table\TableFactory;
+use Ltlacerda\Iptables\IptablesService;
+use Ltlacerda\Iptables\Table\Table;
+use Ltlacerda\Iptables\Table\TableFactory;
 
 /**
  * Class IptablesTest

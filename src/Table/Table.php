@@ -1,12 +1,12 @@
 <?php
-namespace Azurre\Iptables\Table;
+namespace Ltlacerda\Iptables\Table;
 
-use Azurre\Iptables\Chain;
-use Azurre\Iptables\Command;
+use Ltlacerda\Iptables\Chain;
+use Ltlacerda\Iptables\Command;
 
 /**
  * Class Table
- * @package Azurre\Iptables\Table
+ * @package Ltlacerda\Iptables\Table
  */
 class Table
 {

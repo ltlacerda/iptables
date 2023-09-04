@@ -2,10 +2,10 @@
 namespace Iptables;
 
 use PHPUnit_Framework_TestCase;
-use Azurre\Iptables\Chain;
-use Azurre\Iptables\Rule;
-use Azurre\Iptables\Table\Table;
-use Azurre\Iptables\Target;
+use Ltlacerda\Iptables\Chain;
+use Ltlacerda\Iptables\Rule;
+use Ltlacerda\Iptables\Table\Table;
+use Ltlacerda\Iptables\Target;
 
 /**
  * Class ChainTest

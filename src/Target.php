@@ -5,7 +5,7 @@
  * @copyright Copyright (c)Alex Milenin (https://azrr.info/)
  */
 
-namespace Azurre\Iptables;
+namespace Ltlacerda\Iptables;
 
 class Target
 {

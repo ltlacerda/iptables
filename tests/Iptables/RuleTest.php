@@ -1,8 +1,8 @@
 <?php
 namespace Iptables;
 
-use Azurre\Iptables\Target;
-use Azurre\Iptables\Rule;
+use Ltlacerda\Iptables\Target;
+use Ltlacerda\Iptables\Rule;
 use PHPUnit_Framework_TestCase;
 
 /**

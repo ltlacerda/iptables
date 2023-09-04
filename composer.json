@@ -1,5 +1,5 @@
 {
-    "name": "azurre/iptables",
+    "name": "ltlacerda/iptables",
     "description": "Class to manage entries in iptables.",
     "license": "GPL-3.0",
     "require-dev": {
@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Azurre\\Iptables\\": "src/"
+            "Ltlacerda\\Iptables\\": "src/"
         }
     }
 }

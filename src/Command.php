@@ -1,9 +1,9 @@
 <?php
-namespace Azurre\Iptables;
+namespace Ltlacerda\Iptables;
 
 /**
  * Class Command
- * @package azurre\Iptables
+ * @package ltlacerda\Iptables
  */
 class Command
 {
@@ -200,6 +200,13 @@ class Command
         $this->options['--destination'] = $value;
         return $this;
     }
+
+    public function setMultiport($value)
+    {
+        $this->options['--match multiport --dports'] = $value;
+        return $this;
+    }
+
 
     /**
      * @param string $jump

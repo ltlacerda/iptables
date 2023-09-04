@@ -1,7 +1,7 @@
 <?php
-namespace Azurre\Iptables;
+namespace Ltlacerda\Iptables;
 
-use Azurre\Iptables\Table\Table;
+use Ltlacerda\Iptables\Table\Table;
 
 /**
  * Class Iptables

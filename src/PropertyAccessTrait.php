@@ -1,6 +1,6 @@
 <?php
 
-namespace Azurre\Iptables;
+namespace Ltlacerda\Iptables;
 
 trait PropertyAccessTrait
 {

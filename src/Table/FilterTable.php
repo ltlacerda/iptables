@@ -1,9 +1,9 @@
 <?php
-namespace Azurre\Iptables\Table;
+namespace Ltlacerda\Iptables\Table;
 
 /**
  * Class FilterTable
- * @package Azurre\Iptables\Table
+ * @package Ltlacerda\Iptables\Table
  */
 class FilterTable extends Table
 {
