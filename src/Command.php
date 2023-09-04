@@ -60,9 +60,9 @@ class Command
      * @param int $ruleNum
      * @return string
      */
-    public function deleteRule($chainName, $ruleNum)
+    public function deleteRule($chainName)
     {
-        $this->cmd = '-D ' . $chainName . ' ' . $ruleNum;
+        $this->cmd = '-D ' . $chainName;
         return (string)$this;
     }
 
