@@ -203,7 +203,7 @@ class Command
 
     public function setMultiport($value)
     {
-        $this->options['--match multiport --dports'] = $value;
+        $this->options['--match multiport --ports'] = $value;
         return $this;
     }
 
