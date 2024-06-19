@@ -207,6 +207,11 @@ class Command
         return $this;
     }
 
+    public function addDestinationException($value)
+    {
+        $this->options['! -d'] = $value;
+        return $this;
+    }
 
     /**
      * @param string $jump
